@@ -1,0 +1,61 @@
+# CS1151 A4: List Processing
+# Name: Kane John
+# Student ID: 5824629
+
+import random
+
+# Generate a random list
+n = int(input("How many numbers in the list? "))
+myList = random.choices(range(1, 11), k=n)
+print(myList)  # Print list as per assignment instructions
+
+# Third-to-the-last digit from ID
+id_digit = 6  # From ID 5824629
+
+# Step 1: Create OddList and EvenList based on ID conditions
+OddList = [num for num in myList if num % 2 == 1]  # Odd values
+EvenList = [num for num in myList if num % 2 == 0]  # Even values
+
+print("OddList is", OddList)
+print("EvenList is", EvenList)
+
+# Step 2: Find the longer list and reverse sort it
+if len(OddList) >= len(EvenList):
+    longer_list, list_name = OddList, "OddList"
+else:
+    longer_list, list_name = EvenList, "EvenList"
+
+longer_list_sorted = sorted(longer_list, reverse=True)
+print(f"{list_name} in reverse sorted order is", longer_list_sorted)
+
+# Step 3: Determine which list to check for most frequent value
+target_list, target_name = (EvenList, "EvenList") if len(OddList) > len(EvenList) else (OddList, "OddList")
+
+# Step 4: Find the most frequent value manually
+def most_frequent(lst):
+    freq_dict = {}
+    max_count = 0
+    most_freq_value = None
+
+    for num in lst:
+        freq_dict[num] = freq_dict.get(num, 0) + 1
+        if freq_dict[num] > max_count:
+            max_count = freq_dict[num]
+            most_freq_value = num
+
+    return most_freq_value
+
+if target_list:
+    most_common = most_frequent(target_list)
+    print(f"The value {most_common} occurs most often in {target_name}")
+
+
+
+How many numbers in the list? 11 
+[4, 7, 10, 7, 10, 8, 3, 4, 1, 10, 4]
+OddList is [7, 7, 3, 1]
+EvenList is [4, 10, 10, 8, 4, 10, 4]
+EvenList in reverse sorted order is [10, 10, 10, 8, 4, 4, 4]
+The value 7 occurs most often in OddList
+
+Process finished with exit code 0
